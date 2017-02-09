@@ -1,0 +1,172 @@
+<div class="signup-content">
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-md-auto">
+      <h1>Register new account</h1>
+      <form [formGroup]="signup" (ngSubmit)="onSubmit()" novalidate >
+
+        <div class="form-group row">
+          <small>Login details</small>
+        </div>
+
+        <div class="form-group row">
+
+          <div class="col"
+              [ngClass]="{'has-danger': !signup.controls.firstname.valid && !signup.controls.firstname.pristine}">
+            <input type="text"
+              class="form-control form-control-lg"
+              [(ngModel)]="user.firstname"
+              formControlName="firstname"
+              name="firstname"
+              [ngClass]="{'form-control-danger': !signup.controls.firstname.valid && !signup.controls.firstname.pristine}"
+              placeholder="First name" />
+          </div>
+
+          <div class="col"
+              [ngClass]="{'has-danger': !signup.controls.lastname.valid && !signup.controls.lastname.pristine}">
+            <input type="text"
+              class="form-control form-control-lg"
+              [(ngModel)]="user.lastname"
+              formControlName="lastname"
+              name="lastname"
+              [ngClass]="{'form-control-danger': !signup.controls.lastname.valid && !signup.controls.lastname.pristine}"
+              placeholder="Last name" />
+          </div>
+        </div>
+
+        <div class="form-group row"
+             [ngClass]="{'has-danger': !signup.controls.email.valid && !signup.controls.email.pristine}">
+
+          <div class="col">
+            <input type="email"
+              class="form-control form-control-lg"
+              [(ngModel)]="user.email"
+              formControlName="email"
+              name="email"
+              [ngClass]="{'form-control-danger': !signup.controls.email.valid && !signup.controls.email.pristine}"
+              placeholder="Email address" />
+          </div>
+        </div>
+
+        <div class="form-group row"
+               [ngClass]="{'has-danger': !signup.controls.password.valid && !signup.controls.password.pristine}">
+
+          <div class="col">
+            <input type="password"
+              class="form-control form-control-lg"
+              [(ngModel)]="user.password"
+              formControlName="password"
+              name="password"
+              [ngClass]="{'form-control-danger': !signup.controls.password.valid && !signup.controls.password.pristine}"
+              placeholder="Password" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <small>Business details</small>
+        </div>
+
+        <div class="form-group row"
+            [ngClass]="{'has-danger': !signup.controls.company.valid && !signup.controls.company.pristine}">
+
+          <div class="col">
+            <input type="text"
+                class="form-control form-control-lg"
+                [(ngModel)]="user.company"
+                formControlName="company"
+                name="company"
+                [ngClass]="{'form-control-danger': !signup.controls.company.valid && !signup.controls.company.pristine}"
+                placeholder="Company name" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col"
+             [ngClass]="{'has-danger': !signup.controls.business.valid && !signup.controls.business.pristine}">
+            <select [(ngModel)]="user.business"
+                formControlName="business"
+                name="business"
+                [ngClass]="{
+                  'form-control-danger': !signup.controls.business.valid && !signup.controls.business.pristine,
+                  'valid-select': signup.controls.business.valid
+                }"
+                class="form-control form-control-lg">
+                <option value="">-- Choose business type --</option>
+                <option value="1">Other</option>
+                <option value="2">Hair Salon</option>
+                <option value="3">Nail Salon</option>
+                <option value="4">Beauty Salon</option>
+                <option value="5">Skin Clinic</option>
+                <option value="6">Tanning Salon</option>
+                <option value="7">Waxing Salon</option>
+                <option value="8">Spa</option>
+                <option value="9">Massage Therapy</option>
+                <option value="10">Barbershop</option>
+                <option value="11">Brow Bar</option>
+                <option value="12">Chiropractic Clinic</option>
+                <option value="13">Dental Clinic</option>
+                <option value="14">Gym &amp; Fitness</option>
+                <option value="15">Health Club</option>
+                <option value="16">Makeup Studio</option>
+                <option value="17">Mobile Therapy</option>
+                <option value="18">Nutrition &amp; Weight Loss</option>
+                <option value="19">Pilates Studio</option>
+                <option value="20">Yoga Studio</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col"
+              [ngClass]="{'has-danger': !signup.controls.country.valid && !signup.controls.country.pristine}">
+            <select [(ngModel)]="user.country" formControlName="country" name="country"
+                    [ngClass]="{
+                      'form-control-danger': !signup.controls.country.valid && !signup.controls.country.pristine,
+                      'valid-select': signup.controls.country.valid
+                    }"
+                    (change)="selectCountry(signup.controls.country, signup)"
+                    class="form-control form-control-lg">
+                <option value="">-- Choose country ---</option>
+                <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col"
+            [ngClass]="{'has-danger': !signup.controls.timezone.valid && !signup.controls.timezone.pristine}">
+            <select [(ngModel)]="user.timezone"
+                formControlName="timezone"
+                name="timezone"
+                [ngClass]="{
+                  'form-control-danger': !signup.controls.timezone.valid && !signup.controls.timezone.pristine,
+                  'valid-select': signup.controls.timezone.valid
+                  }"
+                class="form-control form-control-lg">
+                <option value="">-- Choose time zone --</option>
+                <option *ngFor="let timezone of timezones" value="{{timezone.value}}">{{timezone.text}}</option>
+            </select>
+          </div>
+          <div class="col"
+              [ngClass]="{'has-danger': !signup.controls.currency.valid && !signup.controls.currency.pristine}">
+            <select [(ngModel)]="user.currency"
+                  formControlName="currency"
+                  name="currency"
+                  [ngClass]="{
+                    'form-control-danger': !signup.controls.currency.valid && !signup.controls.currency.pristine,
+                    'valid-select': signup.controls.currency.valid
+                    }"
+                  class="form-control form-control-lg">
+                <option value="">-- Choose currency --</option>
+                <option *ngFor="let currency of currencyList | currencyArray" value="{{currency.key}}">{{currency.value}} - {{currency.key}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+              <button type="submit"
+              [disabled]="signup.invalid"
+              class="btn btn-default btn-block btn-submit">Create my account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

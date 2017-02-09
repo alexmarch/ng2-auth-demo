@@ -1,0 +1,59 @@
+<div class="signin-content">
+  <h1 class="welcome-msg" [hidden]="user.firstname.length == 0 && user.lastname.length == 0">
+            Welcome {{user.firstname}} {{user.lastname}}
+  </h1>
+  <div class="row no-gutters row-max-height">
+    <div class="col align-self-end">
+
+      <h3 class="text-pull-down">This's demo of SignIn/SignUp forms</h3>
+    </div>
+    <div class="col-4">
+      <div class="signin-form-content">
+        <div class="container">
+          <h1>Login to your account</h1>
+          <form [formGroup]="signin" autocomplete="off" novalidate (ngSubmit)="signinSubmit($event)">
+
+            <div class="form-group">
+                <input
+                  formnovalidate
+                  autocomplete="off"
+                  type="email"
+                  class="form-control form-control-lg"
+                  formControlName="email"
+                  [(ngModel)]="user.email"
+                  name="emailInput"
+                  placeholder="Email address">
+            </div>
+
+            <div class="form-group">
+              <input
+                autocomplete="off"
+                type="password"
+                formControlName="password"
+                class="form-control form-control-lg"
+                name="passwordInput"
+                [(ngModel)]="user.password"
+                placeholder="Password">
+            </div>
+
+            <div class="form-group">
+              <button
+                type="submit"
+                [disabled]="!signin.valid"
+                class="btn btn-default btn-block btn-submit btn-lg">
+                  Login to App
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="register-block-content">
+          <p>You don't have account yet ?</p>
+          <button
+              type="button"
+              class="btn btn-default btn-reg"
+              routerLink="/signup">Register your account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
